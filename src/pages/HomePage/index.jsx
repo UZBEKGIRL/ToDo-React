@@ -16,8 +16,9 @@ export default function HomePage() {
     }
     const [arr, setArr] = useState(todos);
     const [num, setNum] = useState(1);
+    const [editF, setEditF] = useState(true);
+    const [editNumber, setEditNumber] = useState(0);
 
-    console.log(arr);
     let input = useRef();
     useEffect(()=>{
         console.log('Ozgardi');
@@ -49,6 +50,12 @@ export default function HomePage() {
     function edit(index) {
         console.log("edit");
         console.log(index);
+        let a = arr.filter((e)=>{
+            if(e.id == index) return e;
+        })
+        input.current.value = a[0].text;
+        setEditF(false);
+        setEditNumber(index);
     }
     return (
         <>
@@ -60,20 +67,49 @@ export default function HomePage() {
             {/* <Typography tag='h1' classname='main'>To-Do-List</Typography> */}
             <form action="" onSubmit={(e)=>{
                 e.preventDefault();
-                let soat = new Date().getHours();
-                let minut = new Date().getMinutes();
-                console.log(soat, minut);
-                let obj = {
-                    id: todos[todos.length-1].id+1,
-                    text : input.current.value,
-                    time: `${soat}:${minut}`,
-                    do: false
-                };
-                console.log(obj);
-                todos.push(obj);
-                localStorage.setItem("todos", JSON.stringify(todos));
-                setArr(todos);
-                console.log(arr);
+                console.log(editF);
+                if( editF == false){
+                    console.log(true);
+                    let soat = new Date().getHours();
+                    let minut = new Date().getMinutes();
+                    let obj = {
+                        id: editNumber,
+                        text : input.current.value,
+                        time: `${soat}:${minut}`,
+                        do: false
+                    };
+                    console.log(obj);
+                    console.log(editNumber);
+                    let ab = arr.filter((e)=>{
+                        if(e.id == editNumber){
+                            e=obj;
+                            console.log(e);
+                            return obj;
+                        }
+                            return e;
+                    })
+                    console.log(ab);
+                    localStorage.setItem("todos", JSON.stringify(ab));
+                    setArr(ab);
+                    console.log(arr);
+                    
+                }
+                else{
+                    console.log(false);
+                    let soat = new Date().getHours();
+                    let minut = new Date().getMinutes();
+                    let obj = {
+                        id: todos[todos.length-1].id+1,
+                        text : input.current.value,
+                        time: `${soat}:${minut}`,
+                        do: false
+                    };
+                    console.log(obj);
+                    todos.push(obj);
+                    localStorage.setItem("todos", JSON.stringify(todos));
+                    setArr(todos);
+                    console.log(arr);
+                }
             }}>
                 <input type="text" placeholder="Enter todo" ref={input} />
                 <button>Submit</button>
