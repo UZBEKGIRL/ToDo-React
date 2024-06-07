@@ -1,6 +1,7 @@
 import { useState } from "react";
 import clsx from "clsx";
 import cn from "./style.module.scss";
+import Typography from "../Typography";
 
 export default function Card(props) {
   const { e, del, edit, doit, doitagain } = props;
@@ -61,9 +62,10 @@ export default function Card(props) {
           <i class="fa-regular fa-square-check"></i>
         </button>
       </div>
-      <p>{matn}</p>
+      {/* <p>{matn}</p> */}
+      <Typography tag='h1' classname='h1'>{matn}</Typography>
       <div className={clsx(cn["soat"])}>
-        <p>{e.time}</p>
+        <Typography tag='p' classname='p'>{e.time}</Typography>
       </div>
     </div>
   );
