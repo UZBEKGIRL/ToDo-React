@@ -17,9 +17,10 @@ export default function Card(props) {
     // SetState3('card2');
   }
 
-  let matn = `${e.matn}`;
-  if (matn.length > 100) {
-    matn = matn.substring(0, 100);
+  let matn = `${e.text}`;
+  console.log(matn);
+  if (matn.length > 50) {
+    matn = matn.substring(0, 50);
   }
 
   return (
