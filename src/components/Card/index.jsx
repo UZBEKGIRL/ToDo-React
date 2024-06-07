@@ -62,10 +62,9 @@ export default function Card(props) {
           <i class="fa-regular fa-square-check"></i>
         </button>
       </div>
-      {/* <p>{matn}</p> */}
       <Typography tag='h1' classname='h1'>{matn}</Typography>
       <div className={clsx(cn["soat"])}>
-        <p>{e.time}</p>
+        <Typography tag='p' classname='p'>{e.time}</Typography>
       </div>
     </div>
   );
