@@ -1,6 +1,7 @@
 import { useState } from "react";
 import clsx from "clsx";
 import cn from "./style.module.scss";
+import Typography from "../Typography";
 
 export default function Card(props) {
   const { e, del, edit, doit, doitagain } = props;
