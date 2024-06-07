@@ -63,7 +63,7 @@ export default function Card(props) {
         </button>
       </div>
       {/* <p>{matn}</p> */}
-      <Typography tag='p' classname='h1'>{matn}</Typography>
+      <Typography tag='h1' classname='h1'>{matn}</Typography>
       <div className={clsx(cn["soat"])}>
         <p>{e.time}</p>
       </div>
