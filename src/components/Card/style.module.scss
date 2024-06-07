@@ -6,7 +6,7 @@
     background: lightseagreen;
     display: flex;
     flex-direction: column;
-    padding: 20px;
+    padding: 20px 20px;
     gap: 20px;
 
     .in{
@@ -15,6 +15,10 @@
         display: flex;
         justify-content: flex-end;
         gap: 20px;
+    }
+    h1{
+        font-size: 20px;
+        margin: 0;
     }
 
     button{
@@ -87,6 +91,10 @@
         display: flex;
         justify-content: flex-end;
         gap: 20px;
+    }
+    h1{
+        font-size: 20px;
+        margin: 0;
     }
 
     button{
