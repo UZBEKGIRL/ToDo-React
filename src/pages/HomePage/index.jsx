@@ -15,9 +15,9 @@ export default function HomePage() {
         console.log("bo'sh");
     }
     const [arr, setArr] = useState(todos);
-    const [num, setNum] = useState(1);
     const [editF, setEditF] = useState(true);
     const [editNumber, setEditNumber] = useState(0);
+    
 
     let input = useRef();
     useEffect(()=>{
@@ -26,15 +26,19 @@ export default function HomePage() {
         return ()=>{
             console.log('cleanup');
         }
-    },[num, arr])
+    },[ arr])
 
     function doit(index) {
-        // a.do = 'true';
-        console.log(index);
+        arr[index].do = true;
+        console.log(arr[index].do);
+        localStorage.setItem('todos', JSON.stringify(arr));
+        console.log(arr);
     }
     function doitagain(index) {
-        // a.do = 'false';
-        console.log(index);
+        arr[index].do = false;
+        console.log(arr[index].do);
+        localStorage.setItem('todos', JSON.stringify(arr));
+        console.log(arr);
     }
     function del(index) {
         console.log("del");
@@ -42,9 +46,7 @@ export default function HomePage() {
         let aaa = arr.filter((e)=>{
             if(e.id !== index) return e;
         })
-        console.log(aaa);
           setArr(aaa);
-        console.log(aaa);
         localStorage.setItem('todos', JSON.stringify(aaa));
     }
     function edit(index) {
@@ -67,9 +69,7 @@ export default function HomePage() {
             {/* <Typography tag='h1' classname='main'>To-Do-List</Typography> */}
             <form action="" onSubmit={(e)=>{
                 e.preventDefault();
-                console.log(editF);
                 if( editF == false){
-                    console.log(true);
                     let soat = new Date().getHours();
                     let minut = new Date().getMinutes();
                     let obj = {
@@ -78,32 +78,38 @@ export default function HomePage() {
                         time: `${soat}:${minut}`,
                         do: false
                     };
-                    console.log(obj);
-                    console.log(editNumber);
-                    let ab = arr.filter((e)=>{
+                    let newArr = arr.map((e)=>{
                         if(e.id == editNumber){
                             e=obj;
-                            console.log(e);
                             return obj;
-                        }
+                        }else{
                             return e;
-                    })
-                    console.log(ab);
-                    localStorage.setItem("todos", JSON.stringify(ab));
-                    setArr(ab);
-                    console.log(arr);
+                        }
+                    });
+                    localStorage.setItem("todos", JSON.stringify(newArr));
+                    setArr(newArr);
                     
                 }
                 else{
                     console.log(false);
                     let soat = new Date().getHours();
                     let minut = new Date().getMinutes();
-                    let obj = {
-                        id: todos[todos.length-1].id+1,
-                        text : input.current.value,
-                        time: `${soat}:${minut}`,
-                        do: false
-                    };
+                    let obj = {};
+                    if(todos.length == 0){
+                        obj = {
+                            id: 0,
+                            text : input.current.value,
+                            time: `${soat}:${minut}`,
+                            do: false
+                        };
+                    }else{
+                        obj = {
+                            id: todos[todos.length-1].id+1,
+                            text : input.current.value,
+                            time: `${soat}:${minut}`,
+                            do: false
+                        };
+                    }
                     console.log(obj);
                     todos.push(obj);
                     localStorage.setItem("todos", JSON.stringify(todos));
@@ -118,9 +124,16 @@ export default function HomePage() {
             <div className={clsx(cn['cards'])}>
                 {
                     arr.map((e)=>{
-                       return <Card e= {e} del = {del} edit={edit} doit={doit} doitagain={doitagain}></Card>
+                        console.log(e);
+                        if (arr.length == 0) {
+                            console.log(arr.length);
+                            return <Typography tag='h1' classname='main'>ToDolar hali mavjud emas!</Typography>
+                        }
+                       return <Card e= {e} arr={arr} del = {del} edit={edit} doit={doit} doitagain={doitagain}></Card>
                     })
+                
                 }
+                
                 
             </div>
         </div>  

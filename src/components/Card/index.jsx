@@ -1,24 +1,29 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import clsx from "clsx";
 import cn from "./style.module.scss";
 import Typography from "../Typography";
 
 export default function Card(props) {
-  const { e, del, edit, doit, doitagain } = props;
+  const { e, arr, del, edit, doit, doitagain } = props;
 
-  const [state, setState] = useState(true);
+  let [state, setState] = useState(true);
   const [state2, setState2] = useState("false1");
   const [state3, setState3] = useState("card");
 
-  if (e.do === true) {
-    console.log("true");
-    // setState(false);
-    // SetState2('true2');
-    // SetState3('card2');
-  }
+  useEffect(()=>{
+    console.log('bajarildi');
+    console.log(arr);
+    if(e.do == false){
+      return console.log('sdv');;
+    }
+      setState( false);
+      setState2('true2');
+      setState3('card2');
+    
+    
+  }, [arr])
 
   let matn = `${e.text}`;
-  console.log(matn);
   if (matn.length > 50) {
     matn = matn.substring(0, 50);
   }
@@ -40,6 +45,8 @@ export default function Card(props) {
         >
           <i class="fa-regular fa-trash-can"></i>
         </button>
+
+
         <button
           onClick={() => {
             doit(e.id);
